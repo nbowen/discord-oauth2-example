@@ -9,6 +9,8 @@ load_dotenv()
 OAUTH2_CLIENT_ID = os.environ['OAUTH2_CLIENT_ID']
 OAUTH2_CLIENT_SECRET = os.environ['OAUTH2_CLIENT_SECRET']
 OAUTH2_REDIRECT_URI = 'http://localhost:5000/callback'
+if 'OAUTH2_REDIRECT_URI' in os.environ:
+    OAUTH2_REDIRECT_URI = os.environ['OAUTH2_REDIRECT_URI']
 
 API_BASE_URL = os.environ.get('API_BASE_URL', 'https://discordapp.com/api')
 AUTHORIZATION_BASE_URL = API_BASE_URL + '/oauth2/authorize'
