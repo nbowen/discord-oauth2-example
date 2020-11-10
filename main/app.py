@@ -75,4 +75,7 @@ def me():
 
 
 if __name__ == '__main__':
-    app.run()
+    port = None
+    if 'FLASK_LISTEN_PORT' in os.environ:
+        port = int(os.environ['FLASK_LISTEN_PORT'])
+    app.run(port=port)
