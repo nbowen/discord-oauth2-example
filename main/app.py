@@ -75,7 +75,14 @@ def me():
 
 
 if __name__ == '__main__':
+
     port = None
     if 'FLASK_LISTEN_PORT' in os.environ:
         port = int(os.environ['FLASK_LISTEN_PORT'])
-    app.run(port=port)
+
+    host = None
+    if 'FLASK_LISTEN_HOST' in os.environ:
+        host = os.environ['FLASK_LISTEN_HOST']
+
+    app.run(host=host, port=port)
+
