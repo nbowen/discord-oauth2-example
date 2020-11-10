@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, g, session, redirect, request, url_for, jsonify
+from flask import Flask, session, redirect, request, url_for, jsonify, render_template
 from requests_oauthlib import OAuth2Session
 from dotenv import load_dotenv
 
@@ -45,9 +45,14 @@ def make_session(token=None, state=None, scope=None):
 
 @app.route('/')
 def index():
+    return render_template("homepage.html")
+
+
+@app.route('/discord_oauth_connect')
+def discord_oauth_connect():
     scope = request.args.get(
         'scope',
-        'identify email connections guilds guilds.join')
+        'identify')  # email connections guilds guilds.join')
     discord = make_session(scope=scope.split(' '))
     authorization_url, state = discord.authorization_url(AUTHORIZATION_BASE_URL)
     session['oauth2_state'] = state
@@ -63,8 +68,23 @@ def callback():
         TOKEN_URL,
         client_secret=OAUTH2_CLIENT_SECRET,
         authorization_response=request.url)
-    session['oauth2_token'] = token
-    return redirect(url_for('.me'))
+    discord_connection = { }
+    discord_connection['oauth2_token'] = token
+    discord_connection['user'] = \
+        discord.get(API_BASE_URL + '/users/@me').json()
+    discord_connection['guilds'] = \
+        discord.get(API_BASE_URL + '/users/@me/guilds').json()
+    discord_connection['connections'] = \
+        discord.get(API_BASE_URL + '/users/@me/connections').json()
+    session['discord_connection'] = discord_connection
+    return redirect("/")
+
+
+@app.route("/discord_oauth_disconnect")
+def discord_oauth_disconnect():
+    session.pop('discord_connection', None)
+
+    return redirect("/")
 
 
 @app.route('/me')
