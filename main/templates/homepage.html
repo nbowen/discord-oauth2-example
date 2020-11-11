@@ -11,10 +11,10 @@
         Hi, {{ session['discord_connection']['user']['username'] }}! Lookin' good today!<br />
         <img src="https://cdn.discordapp.com/avatars/{{ session['discord_connection']['user']['id']}}/{{ session['discord_connection']['user']['avatar'] }}.png" /><br />
         <br />
-        <a href="discord_oauth_disconnect">Disconnect from Discord</a>
+        <a href="discord_oauth/disconnect">Disconnect from Discord</a>
     {% else %}
         <p>As you are not currently connected via Discord OAuth, this page will do nothing.</p>
-        <p>You can <a href="discord_oauth_connect">Connect to Discord</a>, in which case this page will still do nothing, but differently.</p>
+        <p>You can <a href="discord_oauth/connect">Connect to Discord</a>, in which case this page will still do nothing, but differently.</p>
     {% endif %}
 </div>
 </body>

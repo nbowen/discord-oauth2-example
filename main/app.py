@@ -27,6 +27,6 @@ if __name__ == '__main__':
     if 'FLASK_LISTEN_HOST' in os.environ:
         host = os.environ['FLASK_LISTEN_HOST']
 
-    app.register_blueprint(discord_oauth_api)
+    app.register_blueprint(discord_oauth_api, url_prefix="/discord_oauth")
 
     app.run(host=host, port=port)

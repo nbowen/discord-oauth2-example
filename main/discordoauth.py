@@ -41,7 +41,7 @@ def make_session(token=None, state=None, scope=None):
         token_updater=token_updater)
 
 
-@discord_oauth_api.route('/discord_oauth_connect')
+@discord_oauth_api.route('/connect')
 def discord_oauth_connect():
     scope = request.args.get(
         'scope',
@@ -71,7 +71,7 @@ def callback():
     return redirect("/")
 
 
-@discord_oauth_api.route("/discord_oauth_disconnect")
+@discord_oauth_api.route("/disconnect")
 def discord_oauth_disconnect():
     session.pop('discord_connection', None)
 
