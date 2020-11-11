@@ -2,6 +2,9 @@ import os
 
 from flask import Blueprint, redirect, request, session
 from requests_oauthlib import OAuth2Session
+from dotenv import load_dotenv
+
+load_dotenv()
 
 discord_oauth_api = Blueprint('discord_oauth_api', __name__)
 
