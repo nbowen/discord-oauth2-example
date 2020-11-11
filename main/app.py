@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, redirect, request, jsonify, render_template
+from flask import Flask, render_template
 from dotenv import load_dotenv
 
 from main.discordoauth import discord_oauth_api
@@ -30,4 +30,3 @@ if __name__ == '__main__':
     app.register_blueprint(discord_oauth_api)
 
     app.run(host=host, port=port)
-

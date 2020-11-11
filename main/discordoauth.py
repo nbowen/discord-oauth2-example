@@ -61,14 +61,12 @@ def callback():
         TOKEN_URL,
         client_secret=OAUTH2_CLIENT_SECRET,
         authorization_response=request.url)
-    discord_connection = { }
-    discord_connection['oauth2_token'] = token
-    discord_connection['user'] = \
-        discord.get(API_BASE_URL + '/users/@me').json()
-    discord_connection['guilds'] = \
-        discord.get(API_BASE_URL + '/users/@me/guilds').json()
-    discord_connection['connections'] = \
-        discord.get(API_BASE_URL + '/users/@me/connections').json()
+    discord_connection = {
+        'oauth2_token': token,
+        'user': discord.get(API_BASE_URL + '/users/@me').json(),
+        'guilds': discord.get(API_BASE_URL + '/users/@me/guilds').json(),
+        'connections': discord.get(API_BASE_URL + '/users/@me/connections').json()
+    }
     session['discord_connection'] = discord_connection
     return redirect("/")
 
@@ -78,5 +76,3 @@ def discord_oauth_disconnect():
     session.pop('discord_connection', None)
 
     return redirect("/")
-
-
